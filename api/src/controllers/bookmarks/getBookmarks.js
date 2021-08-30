@@ -23,12 +23,12 @@ const handler = async (event) => {
         ({ Items } = await bookmarksService.getBookmarks(userId));
     } catch (err) {
         console.error('Error retrieving bookmarks', err);
-        throw err;
+        throw new Error('Error retrieving bookmarks'); // rethrow to let http middleware deal with it
     }
     return {
         statusCode: 200,
         body: JSON.stringify({
-            bookmarks: Items
+            bookmarks: Items.map((item) => item.articleSk)
         })
     };
 };

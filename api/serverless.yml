@@ -55,6 +55,12 @@ functions:
         method: get
         cors: true
         private: true
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:Query"
+      Resource:
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.bookmarks_table}*"
 resources:
   Resources:
     pubmedBookmarks:
