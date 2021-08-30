@@ -37,11 +37,11 @@
         <v-col cols="6">
           <v-text-field
             solo
-            append-icon="mdi-book-search"
             label="Filter"
             single-line
             hide-details
             v-model="searchString"
+            @keydown.enter="executeSearch"
           ></v-text-field>
         </v-col>
         <v-col cols="2">
