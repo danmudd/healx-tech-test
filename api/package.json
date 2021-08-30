@@ -1,0 +1,42 @@
+{
+  "name": "pubmed-bookmarks",
+  "version": "0.0.1",
+  "description": "PubMed Bookmarks API",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettier": "npx prettier --write 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:danmudd/healx-tech-test.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "homepage": "https://github.com/danmudd/healx-tech-test",
+  "dependencies": {
+    "@middy/core": "^2.5.1",
+    "@middy/http-cors": "^2.5.1",
+    "@middy/http-error-handler": "^2.5.1",
+    "@middy/http-json-body-parser": "^2.5.1",
+    "joi": "^17.4.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "2.880.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.2",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-offline": "^7.0.0"
+  }
+}

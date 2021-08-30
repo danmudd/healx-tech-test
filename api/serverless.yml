@@ -1,0 +1,47 @@
+service: pubmed-bookmarks
+
+package:
+  exclude:
+    - '**'
+  include:
+    - src/**
+    - node_modules/**
+
+plugins:
+  - serverless-offline
+  - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'eu-west-1'}
+  versionFunctions: false
+
+  environment:
+    stage: ${opt:stage, self:provider.stage}
+
+  apiGateway:
+    apiKeys: 
+      - test-api-key-1
+    usagePlan: 
+      quota:
+        limit: 1000
+        offset: 1
+        period: MONTH
+      throttle: 
+        burstLimit: 50
+        rateLimit: 25
+
+
+functions:
+  ping:
+    handler: src/controllers/ping.handler
+    description: Ping!
+    events:
+    - http:
+        path: /pubmed/ping
+        method: get
+        cors: true
+        private: true
