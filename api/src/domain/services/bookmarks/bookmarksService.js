@@ -16,7 +16,29 @@ module.exports.getBookmarks = async (userId) => {
         }
     };
 
-    console.log(queryParams);
-
     return docClient.query(queryParams).promise();
+};
+
+module.exports.addBookmark = async (userId, articleId) => {
+    const params = {
+        TableName: table,
+        Item: {
+            userPk: userId,
+            articleSk: articleId
+        }
+    };
+
+    await docClient.put(params).promise();
+};
+
+module.exports.deleteBookmark = async (userId, articleId) => {
+    const params = {
+        TableName: table,
+        Key: {
+            userPk: userId,
+            articleSk: articleId
+        }
+    };
+
+    await docClient.delete(params).promise();
 };

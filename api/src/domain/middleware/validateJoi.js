@@ -17,7 +17,7 @@ const validateJoi = ({ schema, options }) => {
                 );
                 Object.assign(handler.event, event);
             } catch (err) {
-                throw new HttpError(400, err, true);
+                throw new HttpError(400, err);
             }
         }
     };

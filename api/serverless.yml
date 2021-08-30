@@ -61,24 +61,53 @@ functions:
         - "dynamodb:Query"
       Resource:
         - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.bookmarks_table}*"
-resources:
-  Resources:
-    pubmedBookmarks:
-      Type: AWS::DynamoDB::Table
-      DeletionPolicy: Retain
-      Properties:
-        TableName: ${self:provider.environment.bookmarks_table}
-        AttributeDefinitions:
-          - AttributeName: userPk
-            AttributeType: S
-          - AttributeName: articleSk
-            AttributeType: S
-        KeySchema:
-          - AttributeName: userPk
-            KeyType: HASH
-          - AttributeName: articleSk
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
-        SSESpecification:
-          SSEEnabled: true
-          
+  addBookmark:
+    handler: src/controllers/bookmarks/addBookmark.handler
+    description: Add PubMed bookmark
+    events:
+    - http:
+        path: /pubmed/bookmarks
+        method: post
+        cors: true
+        private: true
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:PutItem"
+      Resource:
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.bookmarks_table}*"
+  deleteBookmark:
+    handler: src/controllers/bookmarks/deleteBookmark.handler
+    description: Add PubMed bookmark
+    events:
+    - http:
+        path: /pubmed/bookmarks
+        method: delete
+        cors: true
+        private: true
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:DeleteItem"
+      Resource:
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.bookmarks_table}*"
+
+Resources:
+  pubmedBookmarks:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: ${self:provider.environment.bookmarks_table}
+      AttributeDefinitions:
+        - AttributeName: userPk
+          AttributeType: S
+        - AttributeName: articleSk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userPk
+          KeyType: HASH
+        - AttributeName: articleSk
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
