@@ -44,8 +44,6 @@ class BookmarkService implements IBookmarkService {
       },
     });
 
-    console.log(request);
-
     const res = await this.httpService[HttpMethod.GET](
       request,
       request.headers
